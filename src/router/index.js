@@ -5,27 +5,29 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'index',
+    path: "/",
+    name: "index",
     // alias: 'meeetups'
-    redirect: '/meetups',
+    redirect: "/meetups"
     //component: () => import(/* webpackChunkName: "meetups" */ '@/views/meetups-page'),
   },
   {
-    path: '/meetups',
-    name: 'meetups',
-    component: () => import(/* webpackChunkName: "meetups" */ '@/views/meetups-page'),
+    path: "/meetups",
+    name: "meetups",
+    component: () =>
+      import(/* webpackChunkName: "meetups" */ "@/views/meetups-page")
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import(/* webpackChunkName: "auth" */ '@/views/login-page'),
+    path: "/login",
+    name: "login",
+    component: () => import(/* webpackChunkName: "auth" */ "@/views/login-page")
   },
   {
-    path: '/register',
-    name: 'register',
-    component: () => import(/* webpackChunkName: "auth" */ '@/views/register-page'),
-  },
+    path: "/register",
+    name: "register",
+    component: () =>
+      import(/* webpackChunkName: "auth" */ "@/views/register-page")
+  }
   /*
   {
     path: '/meetups/:meetupId(\\d+)',

@@ -1,4 +1,4 @@
-import { http } from '@/http';
+import { http } from "@/http";
 
 /** URL адрес API */
 const API_URL = process.env.VUE_APP_API_URL;
@@ -11,19 +11,19 @@ const API_URL = process.env.VUE_APP_API_URL;
  */
 export async function loginWithApi(email, password) {
   return http(`${API_URL}/auth/login`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify({ email, password }),
-  }).then((response) => {
+    body: JSON.stringify({ email, password })
+  }).then(response => {
     if (response.ok) {
       return response.json();
     } else {
       return response.json().then(res => {
         throw new Error(res.message);
       });
-    };
+    }
   });
 }
 
@@ -36,18 +36,18 @@ export async function loginWithApi(email, password) {
  */
 export async function registerWithApi(email, fullname, password) {
   return http(`${API_URL}/auth/register`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify({ email, fullname, password }),
-  }).then((response) => {
+    body: JSON.stringify({ email, fullname, password })
+  }).then(response => {
     if (response.ok) {
       return response.json();
     } else {
       return response.json().then(res => {
         throw new Error(res.message);
       });
-    };
+    }
   });
 }

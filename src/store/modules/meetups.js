@@ -1,27 +1,27 @@
-import { getMeetupsWithApi } from '@/api';
+import { fetchMeetupsWithApi } from "@/api";
 
 const state = () => ({
-  meetups: [],
+  meetups: []
 });
 
 const getters = {
   GET_MEETUPS(state) {
     return state.meetups;
-  },
+  }
 };
 
 const mutations = {
   SET_MEETUPS(state, meetups) {
     state.meetups = meetups;
-  },
+  }
 };
 
 const actions = {
   FETCH_MEETUPS({ commit }) {
-    return getMeetupsWithApi().then((meetups) => {
-      commit('SET_MEETUPS', meetups);
+    return fetchMeetupsWithApi().then(meetups => {
+      commit("SET_MEETUPS", meetups);
     });
-  },
+  }
 };
 
 export default {
@@ -29,5 +29,5 @@ export default {
   state,
   getters,
   mutations,
-  actions,
+  actions
 };

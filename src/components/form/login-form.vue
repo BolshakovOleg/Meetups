@@ -32,48 +32,51 @@
       </button>
     </div>
     <div class="form__append">
-      Нет аккаунта? <router-link to="/register" class="link">Зарегистрируйтесь</router-link>
+      Нет аккаунта?
+      <router-link to="/register" class="link">Зарегистрируйтесь</router-link>
     </div>
   </form>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
-  name: 'login-form',
+  name: "login-form",
   data() {
     return {
-      email: 'demo@email',
-      password: 'password',
+      email: "demo@email",
+      password: "password"
     };
   },
   methods: {
-    ...mapActions('auth', {
-      login: 'LOGIN',
+    ...mapActions("auth", {
+      login: "LOGIN"
     }),
     checkForm(e) {
       e.preventDefault();
       if (this.email && this.password) {
         this.login({
-          email: this.email, 
+          email: this.email,
           password: this.password
-        }).then(() => {
-          this.$toaster.success('Авторизация прошла успешно');
-        }).catch((error) => {
-          this.$toaster.error(error.message);
-        });
+        })
+          .then(() => {
+            this.$toaster.success("Авторизация прошла успешно");
+          })
+          .catch(error => {
+            this.$toaster.error(error.message);
+          });
       }
       if (!this.email) {
-        this.$toaster.error('Требуется ввести Email');
+        this.$toaster.error("Требуется ввести Email");
         return;
       }
-      if (!this.password) this.$toaster.error('Требуется ввести пароль');
-    },
+      if (!this.password) this.$toaster.error("Требуется ввести пароль");
+    }
   },
   mounted() {
     this.$toaster.info('Для входа с демо-пользователем нажмите "Войти"');
-  },
+  }
 };
 </script>
 

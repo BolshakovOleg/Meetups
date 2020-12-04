@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import AuthLayout from '@/components/layouts/auth-layout';
-import LoginForm from '@/components/form/login-form';
+import AuthLayout from "@/components/layouts/auth-layout";
+import LoginForm from "@/components/form/login-form";
 export default {
-  name: 'login-page',
+  name: "login-page",
   components: {
     AuthLayout,
     LoginForm
-  },
+  }
 };
 </script>
 

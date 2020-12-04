@@ -1,4 +1,4 @@
-import { http } from '@/http';
+import { http } from "@/http";
 
 /** URL адрес API */
 const API_URL = process.env.VUE_APP_API_URL;
@@ -7,15 +7,15 @@ const API_URL = process.env.VUE_APP_API_URL;
  * Получает список митапов с API
  * @return {Promise}
  */
-export async function getMeetupsWithApi() {
-  return http(`${API_URL}/meetups`).then((response) => {
+export async function fetchMeetupsWithApi() {
+  return http(`${API_URL}/meetups`).then(response => {
     if (response.ok) {
       return response.json();
     } else {
       return response.json().then(res => {
         throw new Error(res.message);
       });
-    };
+    }
   });
 }
 
@@ -34,5 +34,5 @@ export function getMeetupCoverLink(meetup) {
  * @return {Promise}
  */
 export async function fetchMeetup(id) {
-  return fetch(`${API_URL}/meetups/${id}`).then((res) => res.json());
+  return fetch(`${API_URL}/meetups/${id}`).then(res => res.json());
 }

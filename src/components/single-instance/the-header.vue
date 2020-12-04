@@ -3,7 +3,7 @@
     <div>
       <h1>
         <a href="/" class="router-link-exact-active router-link-active">
-          <img :src="logo" alt="Meetups"/>
+          <img :src="logo" alt="Meetups" />
         </a>
       </h1>
     </div>
@@ -16,14 +16,14 @@
 </template>
 
 <script>
-const LOGO = require('@/assets/img/logo.svg');
+const LOGO = require("@/assets/img/logo.svg");
 export default {
-  name: 'the-header',
+  name: "the-header",
   data() {
     return {
       logo: LOGO
     };
-  },
+  }
 };
 </script>
 
@@ -72,7 +72,7 @@ export default {
 }
 
 .header nav a:before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 50%;

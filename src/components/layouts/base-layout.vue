@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import TheHeader from '@/components/single-instance/the-header';
-import TheFooter from '@/components/single-instance/the-footer';
+import TheHeader from "@/components/single-instance/the-header";
+import TheFooter from "@/components/single-instance/the-footer";
 export default {
-  name: 'base-layout',
+  name: "base-layout",
   components: {
     TheHeader,
-    TheFooter,
-  },
+    TheFooter
+  }
 };
 </script>
 

@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import AuthLayout from '@/components/layouts/auth-layout';
-import RegisterForm from '@/components/form/register-form';
+import AuthLayout from "@/components/layouts/auth-layout";
+import RegisterForm from "@/components/form/register-form";
 export default {
-  name: 'register-page',
+  name: "register-page",
   components: {
     AuthLayout,
     RegisterForm
-  },
+  }
 };
 </script>
 

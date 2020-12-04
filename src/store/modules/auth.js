@@ -1,13 +1,13 @@
-import { loginWithApi, registerWithApi } from '@/api';
+import { loginWithApi, registerWithApi } from "@/api";
 
 const state = () => ({
-  user: null,
+  user: null
 });
 
 const getters = {
   IS_AUTHENTICATED(state /*getters, rootState, rootGetters*/) {
     return !!state.user;
-  },
+  }
 };
 
 const mutations = {
@@ -16,7 +16,7 @@ const mutations = {
   // returns NOTHING!
   SET_USER(state, user) {
     state.user = user;
-  },
+  }
 };
 
 const actions = {
@@ -25,15 +25,15 @@ const actions = {
   // called by dispatch
   // always returns Promise!
   LOGIN({ commit }, { email, password }) {
-    return loginWithApi(email, password).then((user) => {
-      commit('SET_USER', user);
+    return loginWithApi(email, password).then(user => {
+      commit("SET_USER", user);
     });
   },
   REGISTER({ commit }, { email, fullname, password }) {
     return registerWithApi(email, fullname, password).then(() => {
-      commit('SET_USER', null);
+      commit("SET_USER", null);
     });
-  },
+  }
 };
 
 export default {
@@ -41,5 +41,5 @@ export default {
   state,
   getters,
   mutations,
-  actions,
+  actions
 };

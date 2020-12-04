@@ -42,61 +42,63 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
-  name: 'register-form',
+  name: "register-form",
   data() {
     return {
       fullname: null,
       email: null,
       password: null,
       password2: null,
-      checked: false,
+      checked: false
     };
   },
   methods: {
-    ...mapActions('auth', {
-      register: 'REGISTER',
+    ...mapActions("auth", {
+      register: "REGISTER"
     }),
     checkForm(e) {
       e.preventDefault();
       if (!this.email) {
-        this.$toaster.error('Требуется ввести Email');
+        this.$toaster.error("Требуется ввести Email");
         return;
       }
       if (!this.fullname) {
-        this.$toaster.error('Требуется ввести полное имя');
+        this.$toaster.error("Требуется ввести полное имя");
         return;
       }
       if (!this.password) {
-        this.$toaster.error('Требуется ввести пароль');
+        this.$toaster.error("Требуется ввести пароль");
         return;
       }
       if (this.password.length < 6) {
-        this.$toaster.error('Пароль должен состоять как минимум из 6 символов');
+        this.$toaster.error("Пароль должен состоять как минимум из 6 символов");
         return;
       }
       if (this.password !== this.password2) {
-        this.$toaster.error('Пароли не совпадают');
+        this.$toaster.error("Пароли не совпадают");
         return;
       }
       if (!this.checked) {
-        this.$toaster.error('Требуется согласиться с условиями');
+        this.$toaster.error("Требуется согласиться с условиями");
         return;
       }
       this.register({
         email: this.email,
         fullname: this.fullname,
         password: this.password
-      }).then(() => {
-        this.$toaster.success('Регистрация выполнена успешно');
-        this.$router.push('login');
-      }).catch((error) => {
-        this.$toaster.error(error.message);
-      });
-    },
-  },
+      })
+        .then(() => {
+          this.$toaster.success("Регистрация выполнена успешно");
+          this.$router.push("login");
+        })
+        .catch(error => {
+          this.$toaster.error(error.message);
+        });
+    }
+  }
 };
 </script>
 

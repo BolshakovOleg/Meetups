@@ -9,13 +9,13 @@
 
 <script>
 export default {
-  name: 'FormLayout',
+  name: "FormLayout",
   props: {
     title: {
       type: String,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 
