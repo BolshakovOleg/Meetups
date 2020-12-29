@@ -12,6 +12,7 @@
     margin-bottom: 24px;
     font-size: 18px;
     line-height: 28px;
+    white-space: pre-wrap;
 }
 
 .meetup__aside {

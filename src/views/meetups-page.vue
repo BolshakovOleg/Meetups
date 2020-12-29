@@ -22,13 +22,15 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import { getMeetupCoverLink } from "@/api";
 import { sortByDate } from "@/utils";
 import AppEmpty from "@/components/base/app-empty";
 import MeetupsList from "@/components/meetups/meetups-list";
 import MeetupsCalendar from "@/components/meetups/meetups-calendar";
 import MeetupsFilter from "@/components/meetups/meetups-filter";
+
+import store from "@/store";
 
 export default {
   name: "meetups-page",
@@ -45,6 +47,15 @@ export default {
     { text: "Прошедшие", value: "past" },
     { text: "Ожидаемые", value: "future" }
   ],
+
+  beforeRouteEnter(to, from, next) {
+    store
+      .dispatch("meetups/FETCH_MEETUPS")
+      .then(next)
+      .catch(error => {
+        next(vm => vm.$toaster.error(error.message));
+      });
+  },
 
   computed: {
     ...mapGetters("meetups", {
@@ -96,14 +107,6 @@ export default {
 
       return filteredMeetups.sort(sortByDate);
     }
-  },
-  methods: {
-    ...mapActions("meetups", {
-      fetchMeetups: "FETCH_MEETUPS"
-    })
-  },
-  mounted() {
-    this.fetchMeetups();
   }
 };
 </script>

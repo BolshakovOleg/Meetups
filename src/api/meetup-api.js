@@ -8,15 +8,7 @@ const API_URL = process.env.VUE_APP_API_URL;
  * @return {Promise}
  */
 export async function fetchMeetupsWithApi() {
-  return http(`${API_URL}/meetups`).then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      return response.json().then(res => {
-        throw new Error(res.message);
-      });
-    }
-  });
+  return http(`${API_URL}/meetups`);
 }
 
 /**
@@ -33,6 +25,6 @@ export function getMeetupCoverLink(meetup) {
  * @param {integer} id - id митапа
  * @return {Promise}
  */
-export async function fetchMeetup(id) {
-  return fetch(`${API_URL}/meetups/${id}`).then(res => res.json());
+export async function fetchMeetupWithApi(id) {
+  return http(`${API_URL}/meetups/${id}`);
 }

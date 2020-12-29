@@ -24,11 +24,12 @@
           ]"
         >
           {{ cell.day }}
-          <a
-            class="rangepicker__event"
+          <router-link
             v-for="meetup in cell.meetups"
+            :to="{ name: 'meetup', params: { id: meetup.id } }"
+            class="rangepicker__event"
             :key="meetup.id"
-            >{{ meetup.title }}</a
+            >{{ meetup.title }}</router-link
           >
         </div>
       </div>

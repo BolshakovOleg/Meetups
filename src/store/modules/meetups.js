@@ -37,7 +37,7 @@ const mutations = {
 const actions = {
   FETCH_MEETUPS({ commit }) {
     return fetchMeetupsWithApi().then(meetups => {
-      commit("SET_MEETUPS", meetups);
+      commit("SET_MEETUPS", meetups || []);
     });
   }
 };

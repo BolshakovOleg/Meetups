@@ -9,7 +9,6 @@ const routes = [
     name: "index",
     // alias: 'meeetups'
     redirect: "/meetups"
-    //component: () => import(/* webpackChunkName: "meetups" */ '@/views/meetups-page'),
   },
   {
     path: "/meetups",
@@ -27,40 +26,48 @@ const routes = [
     name: "register",
     component: () =>
       import(/* webpackChunkName: "auth" */ "@/views/register-page")
-  }
-  /*
+  },
   {
-    path: '/meetups/:meetupId(\\d+)',
-    name: 'meetup',
-    redirect: (to) => ({ name: 'meetup-description', params: to.params }),
+    path: "/meetups/:id(\\d+)",
+    name: "meetup",
+    redirect: to => ({ name: "meetup-description", params: to.params }),
     meta: {
       showReturnToMeetups: true,
-      saveScrollPosition: true,
+      saveScrollPosition: true
     },
-    component: () => import('../views/MeetupPage'),
+    component: () =>
+      import(/* webpackChunkName: "meetup" */ "@/views/meetup-page"),
+    props: true,
     children: [
       {
-        path: '',
-        alias: 'description',
-        name: 'meetup-description',
+        path: "description",
+        //alias: 'description',
+        name: "meetup-description",
         props: true,
-        component: () => import('../views/MeetupDescriptionPage'),
+        component: () =>
+          import(
+            /* webpackChunkName: "meetup" */ "@/views/meetup-description-page"
+          )
       },
       {
-        path: 'agenda',
-        name: 'meetup-agenda',
+        path: "agenda",
+        name: "meetup-agenda",
         props: true,
-        component: () => import('../views/MeetupAgendaPage'),
-      },
-    ],
-  },
-  */
+        component: () =>
+          import(/* webpackChunkName: "meetup" */ "@/views/meetup-agenda-page")
+      }
+    ]
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.onError(error => {
+  Vue.prototype.$toaster.error(error.message);
 });
 
 export default router;

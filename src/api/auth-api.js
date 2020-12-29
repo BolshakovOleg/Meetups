@@ -15,15 +15,7 @@ export async function loginWithApi(email, password) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ email, password })
-  }).then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      return response.json().then(res => {
-        throw new Error(res.message);
-      });
-    }
+    body: { email, password }
   });
 }
 
@@ -40,14 +32,6 @@ export async function registerWithApi(email, fullname, password) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ email, fullname, password })
-  }).then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      return response.json().then(res => {
-        throw new Error(res.message);
-      });
-    }
+    body: { email, fullname, password }
   });
 }

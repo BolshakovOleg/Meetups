@@ -1,5 +1,8 @@
 <template>
-  <a :href="`/meetups/${meetup.id}`" class="meetups-list__item">
+  <router-link
+    class="meetups-list__item"
+    :to="{ name: 'meetup', params: { id: meetup.id } }"
+  >
     <div class="meetups-list__col">
       <div
         class="meetups-list__cover"
@@ -34,7 +37,7 @@
         </ul>
       </div>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script>

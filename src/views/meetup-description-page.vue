@@ -1,11 +1,24 @@
 <template>
-  <h1>MeetupDescriptionPage</h1>
+  <p class="meetup-description">{{ description }}</p>
 </template>
 
 <script>
 export default {
-  name: "MeetupDescriptionPage"
+  name: "meetup-description-page",
+
+  props: {
+    meetup: {
+      type: Object,
+      required: true
+    }
+  },
+
+  computed: {
+    description() {
+      return this.meetup?.description || "Описание отсутсвует.";
+    }
+  }
 };
 </script>
 
-<style></style>
+<style scoped></style>

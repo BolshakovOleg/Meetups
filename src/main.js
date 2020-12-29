@@ -7,6 +7,9 @@ import "./assets/styles/index.css";
 import { ToasterPlugin } from "@/plugins/toaster";
 Vue.use(ToasterPlugin, {});
 
+import { ProgressBarPlugin } from "@/plugins/progress";
+Vue.use(ProgressBarPlugin, {});
+
 Vue.config.productionTip = false;
 
 new Vue({

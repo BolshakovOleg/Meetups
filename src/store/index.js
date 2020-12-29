@@ -3,12 +3,13 @@ import Vuex from "vuex";
 import VuexPersistence from "vuex-persist";
 import auth from "./modules/auth";
 import meetups from "./modules/meetups";
+import meetup from "./modules/meetup";
 
 Vue.use(Vuex);
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
-  modules: ["meetups"]
+  modules: ["auth, meetups, meetup"]
 });
 
 export default new Vuex.Store({
@@ -16,7 +17,8 @@ export default new Vuex.Store({
 
   modules: {
     auth,
-    meetups
+    meetups,
+    meetup
   },
 
   plugins: [vuexLocal.plugin]
