@@ -18,12 +18,18 @@
 
 <script>
 import AppIcon from "@/components/base/app-icon";
-import { agendaItemIcons, agendaItemTitles } from "@/utils";
+import {
+  getAgendaIconsMap,
+  getAgendaItemTitlesMap
+} from "@/services/meetup-service";
 
 export default {
   name: "meetup-agenda-item",
 
   components: { AppIcon },
+
+  agendaItemIcons: getAgendaIconsMap(),
+  agendaItemTitles: getAgendaItemTitlesMap(),
 
   props: {
     agendaItem: {
@@ -39,10 +45,12 @@ export default {
         ...this.agendaItem,
         time: `${item.startsAt} - ${item.endsAt}`,
         icon:
-          item.type in agendaItemIcons
-            ? agendaItemIcons[item.type]
-            : agendaItemIcons.other,
-        title: item.title ? item.title : agendaItemTitles[item.type]
+          item.type in this.$options.agendaItemIcons
+            ? this.$options.agendaItemIcons[item.type]
+            : this.$options.agendaItemIcons.other,
+        title: item.title
+          ? item.title
+          : this.$options.agendaItemTitles[item.type]
       };
     }
   }

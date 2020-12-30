@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -7,7 +8,7 @@ const routes = [
   {
     path: "/",
     name: "index",
-    // alias: 'meeetups'
+    // alias: 'meetups'
     redirect: "/meetups"
   },
   {
@@ -41,7 +42,7 @@ const routes = [
     children: [
       {
         path: "description",
-        //alias: 'description',
+        //alias: "description",
         name: "meetup-description",
         props: true,
         component: () =>
@@ -57,6 +58,15 @@ const routes = [
           import(/* webpackChunkName: "meetup" */ "@/views/meetup-agenda-page")
       }
     ]
+  },
+  {
+    path: "/meetups/create",
+    name: "meetup-create",
+    component: () =>
+      import(/* webpackChunkName: "meetup" */ "@/views/meetup-create-page"),
+    meta: {
+      requiresAuth: true
+    }
   }
 ];
 
@@ -64,6 +74,18 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters["auth/IS_AUTHENTICATED"]) {
+      next();
+    } else {
+      next({ name: "login" });
+    }
+  } else {
+    next();
+  }
 });
 
 router.onError(error => {

@@ -19,6 +19,12 @@ export async function loginWithApi(email, password) {
   });
 }
 
+export async function logoutWithApi() {
+  return http(`${API_URL}/auth/logout`, {
+    method: "POST"
+  });
+}
+
 /**
  * Выполняет авторизацию по логину и паролю и возвращает результат
  * @param {string} email - email пользователя

@@ -6,7 +6,7 @@
 
 <script>
 import AuthLayout from "@/components/layouts/auth-layout";
-import LoginForm from "@/components/form/login-form";
+import LoginForm from "@/components/forms/login-form";
 export default {
   name: "login-page",
   components: {

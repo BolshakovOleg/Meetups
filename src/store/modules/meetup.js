@@ -1,7 +1,7 @@
 import { fetchMeetupWithApi } from "@/api";
 
 const state = () => ({
-  meetups: null
+  meetup: null
 });
 
 const getters = {

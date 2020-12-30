@@ -11,10 +11,8 @@ export default {
   name: "meetup-page",
   components: { MeetupView },
   beforeRouteEnter(to, from, next) {
-    store
-      .dispatch("meetup/FETCH_MEETUP", to.params.id)
-      .then(next)
-      .catch(error => next(error));
+    store.dispatch("meetup/FETCH_MEETUP", to.params.id).then(next);
+    //.catch(error => next(error));
   },
   props: {
     id: {

@@ -1,4 +1,4 @@
-import { loginWithApi, registerWithApi } from "@/api";
+import { loginWithApi, logoutWithApi, registerWithApi } from "@/api";
 
 const state = () => ({
   user: null
@@ -7,6 +7,9 @@ const state = () => ({
 const getters = {
   IS_AUTHENTICATED(state /*getters, rootState, rootGetters*/) {
     return !!state.user;
+  },
+  GET_USER(state) {
+    return state.user;
   }
 };
 
@@ -27,6 +30,11 @@ const actions = {
   LOGIN({ commit }, { email, password }) {
     return loginWithApi(email, password).then(user => {
       commit("SET_USER", user);
+    });
+  },
+  LOGOUT({ commit }) {
+    return logoutWithApi().then(() => {
+      commit("SET_USER", null);
     });
   },
   REGISTER({ commit }, { email, fullname, password }) {

@@ -1,4 +1,4 @@
-export { loginWithApi, registerWithApi } from "./auth-api";
+export * from "./auth-api";
 export {
   fetchMeetupsWithApi,
   getMeetupCoverLink,

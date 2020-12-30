@@ -62,6 +62,7 @@ export default {
         })
           .then(() => {
             this.$toaster.success("Авторизация прошла успешно");
+            this.$router.push({ name: "meetups" });
           })
           .catch(error => {
             this.$toaster.error(error.message);
