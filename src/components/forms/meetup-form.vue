@@ -4,23 +4,27 @@
       <fieldset class="form-section">
         <div class="form-group">
           <label class="form-label">Название</label>
-          <input class="form-control" v-model="lcMeetup.title"/>
+          <input class="form-control" v-model="lcMeetup.title" />
         </div>
         <div class="form-group">
           <label class="form-label">Дата</label>
-          <input class="form-control" type="date" v-model="lcMeetup.date"/>
+          <input class="form-control" type="date" v-model="lcMeetup.date" />
         </div>
         <div class="form-group">
           <label class="form-label">Место</label>
-          <input class="form-control" v-model="lcMeetup.place"/>
+          <input class="form-control" v-model="lcMeetup.place" />
         </div>
         <div class="form-group">
           <label class="form-label">Описание</label>
-          <textarea class="form-control" rows="3" v-model="lcMeetup.description"></textarea>
+          <textarea
+            class="form-control"
+            rows="3"
+            v-model="lcMeetup.description"
+          ></textarea>
         </div>
         <div class="form-group">
           <label class="form-label">Изображение</label>
-          <image-uploader v-model="lcMeetup.imageId"/>
+          <image-uploader v-model="lcMeetup.imageId" />
         </div>
       </fieldset>
 
@@ -66,52 +70,54 @@
 import { deepClone } from "@/utils";
 
 export default {
-  name: 'meetup-form',
+  name: "meetup-form",
 
-  components: { ImageUploader, MeetupAgendaItemForm },
+  components: {
+    //ImageUploader
+    //MeetupAgendaItemForm
+  },
 
   data() {
     return {
       lcMeetup: {
         ...deepClone(this.meetup),
-        date: new Date(this.meetup.date).toISOString().substr(0, 10), 
-      },
+        date: new Date(this.meetup.date).toISOString().substr(0, 10)
+      }
     };
   },
 
   props: {
     meetup: {
       type: Object,
-      required: true,
+      required: true
     },
     submitText: {
       type: String,
-      default: "Сохранить",
-    },
+      default: "Сохранить"
+    }
   },
 
   methods: {
     addAgendaItem() {
-      const newItem = {};//buildAgendaItem();
-      if ( this.lcMeetup.agenda.length > 0) {
-        newItem.startsAt = this.lcMeetup.agenda[this.lcMeetup.agenda.length - 1].endsAt;
-      };
+      const newItem = {}; //buildAgendaItem();
+      if (this.lcMeetup.agenda.length > 0) {
+        newItem.startsAt = this.lcMeetup.agenda[
+          this.lcMeetup.agenda.length - 1
+        ].endsAt;
+      }
       this.lcMeetup.agenda.push(newItem);
     },
     removeAgendaItem(idx) {
       this.lcMeetup.agenda.splice(idx, 1);
     },
     handleSubmit() {
-      this.$emit('submit', deepClone(this.lcMeetup));
+      this.$emit("submit", deepClone(this.lcMeetup));
     },
     handleCancel() {
-      this.$emit('cancel');
-    },
+      this.$emit("cancel");
+    }
   }
-
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

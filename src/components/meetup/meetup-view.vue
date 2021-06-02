@@ -14,6 +14,11 @@
             :place="meetup.place"
             :date="meetup.date"
           ></meetup-info>
+          <meetup-manage
+            :id="meetup.id"
+            :attending="meetup.attending || false"
+            :organizing="meetup.organizing || false"
+          />
         </div>
       </div>
     </div>
@@ -25,13 +30,15 @@ import { getMeetupCoverLink } from "@/api";
 import MeetupCover from "./meetup-cover";
 import ContentTabs from "@/components/ui/content-tabs";
 import MeetupInfo from "@/components/meetup/meetup-info";
+import MeetupManage from "@/components/meetup/meetup-manage";
 
 export default {
   name: "meetup-view",
   components: {
     MeetupCover,
     ContentTabs,
-    MeetupInfo
+    MeetupInfo,
+    MeetupManage
   },
   data() {
     return {

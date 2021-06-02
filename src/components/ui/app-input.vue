@@ -23,18 +23,18 @@
 
 <script>
 export default {
-  name: 'app-input',
+  name: "app-input",
 
   inheritAttrs: false,
 
   props: {
     value: {},
-    multiline: Boolean,
+    multiline: Boolean
   },
 
   data() {
     return {
-      hasIcon: false,
+      hasIcon: false
     };
   },
 
@@ -47,25 +47,25 @@ export default {
   },
 
   model: {
-    prop: 'value',
-    event: 'input',
+    prop: "value",
+    event: "input"
   },
 
   computed: {
     listeners() {
       return {
         ...this.$listeners,
-        input: ($event) => this.$emit('input', $event.target.value),
-        change: ($event) => this.$emit('change', $event.target.value),
+        input: $event => this.$emit("input", $event.target.value),
+        change: $event => this.$emit("change", $event.target.value)
       };
-    },
+    }
   },
 
   methods: {
     updateHasIcon() {
-      this.hasIcon = !!this.$slots['left-icon'];
-    },
-  },
+      this.hasIcon = !!this.$slots["left-icon"];
+    }
+  }
 };
 </script>
 

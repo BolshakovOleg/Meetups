@@ -48,6 +48,23 @@ export default {
     PageTabs
   },
 
+  watch: {
+    $route: {
+      handler: function() {
+        this.setFilterField({
+          field: "search",
+          value: this.$route.query.search || ""
+        });
+        this.setFilterField({
+          field: "date",
+          value: this.$route.query.date || "all"
+        });
+        this.setView(this.$route.query.view || "list");
+      },
+      immediate: true
+    }
+  },
+
   computed: {
     ...mapState({
       filter: state => state["meetups"].filter
@@ -57,6 +74,7 @@ export default {
       (vm, field) => vm.filter[field],
       (vm, field, value) => {
         vm.setFilterField({ field, value });
+        vm.updateRoute();
       }
     ),
     view: {
@@ -65,6 +83,7 @@ export default {
       },
       set(value) {
         this.setView(value);
+        this.updateRoute();
       }
     }
   },
@@ -73,7 +92,24 @@ export default {
     ...mapMutations("meetups", {
       setFilterField: "SET_FILTER_FIELD",
       setView: "SET_VIEW"
-    })
+    }),
+    updateRoute() {
+      this.$router
+        .push({
+          path: "/meetups",
+          query: this.buildQuery()
+        })
+        .catch(error => {
+          if (error.name !== "NavigationDuplicated") throw error;
+        });
+    },
+    buildQuery() {
+      let query = { date: this.date, search: this.search, view: this.view };
+      if (this.view === "list") delete query.view;
+      if (this.date === "all") delete query.date;
+      if (this.search === "") delete query.search;
+      return query;
+    }
   }
 };
 </script>

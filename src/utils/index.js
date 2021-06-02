@@ -1,6 +1,6 @@
-var cloneDeep = require('lodash.clonedeep');
+var cloneDeep = require("lodash.clonedeep");
 
-export const deepClone = obj => cloneDeep(obj); 
+export const deepClone = obj => cloneDeep(obj);
 
 export const mapField = (field, getter, setter) => ({
   get() {
@@ -23,4 +23,3 @@ export const mapFields = (fields, getter, setter) =>
 export const sortByDate = (eventA, eventB) => {
   return new Date(eventB.date) - new Date(eventA.date);
 };
-

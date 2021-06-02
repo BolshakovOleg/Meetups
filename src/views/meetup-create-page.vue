@@ -5,14 +5,14 @@
     @submit="handleSubmit"
     @cancel="handleCancel"
   /-->
-  <div>NIGERS</div>
+  <div>Create meetup page</div>
 </template>
 
 <script>
-//import MeetupForm from "@/components/forms/meetup-form"; 
+//import MeetupForm from "@/components/forms/meetup-form";
 
 export default {
-  name: "meetup-create-page",
+  name: "meetup-create-page"
   //components: { MeetupForm }
 };
 </script>

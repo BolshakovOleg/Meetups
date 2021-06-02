@@ -22,24 +22,17 @@ export default {
   name: "the-header",
   data() {
     return {
-      logo: LOGO,
-      showReturnToMeetups: false
+      logo: LOGO
     };
-  },
-  watch: {
-    $route(to) {
-      if (to.matched.some(record => record.meta.showReturnToMeetups)) {
-        this.showReturnToMeetups = true;
-      } else {
-        this.showReturnToMeetups = false;
-      }
-    }
   },
   computed: {
     ...mapGetters("auth", {
       isAuthenticated: "IS_AUTHENTICATED",
       user: "GET_USER"
     }),
+    showReturnToMeetups() {
+      return this.$route.matched.some(route => route.meta.showReturnToMeetups);
+    },
     menu() {
       if (this.isAuthenticated) {
         return [

@@ -23,15 +23,15 @@ export const getAgendaIconsMap = () => ({
 export const buildAgendaItem = () => {
   return {
     id: Math.random(),
-    startsAt: '00:00',
-    endsAt: '00:00',
-    type: 'other',
+    startsAt: "00:00",
+    endsAt: "00:00",
+    type: "other",
     title: null,
     description: null,
     speaker: null,
-    language: null,
+    language: null
   };
-}
+};
 
 export const getAgendaItemTypes = () => [
   { value: "registration", text: "Регистрация" },

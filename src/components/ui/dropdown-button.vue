@@ -1,8 +1,5 @@
 <template>
-  <select
-    class="form-control"
-    @change="$emit('change', $event.target.value)"
-  >
+  <select class="form-control" @change="$emit('change', $event.target.value)">
     <option
       v-for="option in options"
       :value="option.value"
@@ -16,21 +13,21 @@
 
 <script>
 export default {
-  name: 'dropdown-button',
+  name: "dropdown-button",
 
   props: {
     options: {
       type: Array,
-      required: true,
+      required: true
     },
     value: String,
-    title: String,
+    title: String
   },
 
   model: {
-    prop: 'value',
-    event: 'change',
-  },
+    prop: "value",
+    event: "change"
+  }
 };
 </script>
 
