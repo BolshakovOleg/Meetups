@@ -1,3 +1,17 @@
+import { nanoid } from 'nanoid'
+
+export const generateId = () => ( nanoid() );
+
+export const buildMeetup = () => ({
+  id: 0,
+  title: '',
+  description: '',
+  imageId: null,
+  date: null,
+  place: '',
+  agenda: [],
+})
+
 export const getAgendaItemTitlesMap = () => ({
   registration: "Регистрация",
   opening: "Открытие",
@@ -22,7 +36,7 @@ export const getAgendaIconsMap = () => ({
 
 export const buildAgendaItem = () => {
   return {
-    id: Math.random(),
+    id: nanoid(),
     startsAt: "00:00",
     endsAt: "00:00",
     type: "other",
@@ -85,7 +99,7 @@ export const getAgendaItemsFieldSpecifications = () => {
         component: "app-input",
         model: { prop: "value", event: "input" },
         props: {
-          textarea: true
+          multiline: true
         }
       },
       {

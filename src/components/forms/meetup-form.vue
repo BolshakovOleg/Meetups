@@ -4,48 +4,58 @@
       <fieldset class="form-section">
         <div class="form-group">
           <label class="form-label">Название</label>
-          <input class="form-control" v-model="lcMeetup.title" />
+          <app-input
+            v-model="title"
+            required
+          />
         </div>
         <div class="form-group">
           <label class="form-label">Дата</label>
-          <input class="form-control" type="date" v-model="lcMeetup.date" />
+          <app-input
+            type="date"
+            v-model="date"
+            required
+          />
         </div>
         <div class="form-group">
           <label class="form-label">Место</label>
-          <input class="form-control" v-model="lcMeetup.place" />
+          <app-input
+            v-model="place"
+            required
+          />
         </div>
         <div class="form-group">
           <label class="form-label">Описание</label>
-          <textarea
-            class="form-control"
+          <app-input
+            :multiline="true"
             rows="3"
-            v-model="lcMeetup.description"
-          ></textarea>
+            v-model="description"
+            required
+          />
         </div>
         <div class="form-group">
           <label class="form-label">Изображение</label>
-          <image-uploader v-model="lcMeetup.imageId" />
+          <!--image-uploader v-model="lcMeetup.imageId" /-->
         </div>
       </fieldset>
 
       <h3 class="form__section-title">Программа</h3>
-      <!--meetup-agenda-item-form
-        v-for="(agendaItem, idx) in lcMeetup.agenda"
+      <meetup-agenda-item-form
+        v-for="(agendaItem, index) in meetup.agenda"
         :key="agendaItem.id"
-        :agenda-item.sync="lcMeetup.agenda[idx]"
-        @remove="removeAgendaItem(idx)"
+        :index="index"
         class="mb-3"
-      /-->
+      />
 
       <div class="form-section_append">
-        <button type="button" data-test="addAgendaItem" @click="addAgendaItem">
+        <button type="button" @click="pushAgendaItem">
           + Добавить этап программы
         </button>
       </div>
     </div>
 
     <div class="meetup-form__aside">
-      <div class="meetup-form__aside_stick">
+      <div class="meetup-form__aside_stick">      
         <button
           class="button button_secondary button_block"
           type="button"
@@ -67,30 +77,34 @@
 </template>
 
 <script>
-import { deepClone } from "@/utils";
+import { mapFields } from "@/utils";
+import { mapState, mapMutations } from "vuex";
+import AppInput from "@/components/ui/app-input";
+import MeetupAgendaItemForm from "./meetup-agenda-item-form";
 
 export default {
   name: "meetup-form",
 
   components: {
+    AppInput,
     //ImageUploader
-    //MeetupAgendaItemForm
+    MeetupAgendaItemForm
   },
 
-  data() {
-    return {
-      lcMeetup: {
-        ...deepClone(this.meetup),
-        date: new Date(this.meetup.date).toISOString().substr(0, 10)
-      }
-    };
+  computed: {
+    ...mapState({
+      meetup: (state) => state['form'].meetup,
+    }),
+
+    ...mapFields(['title', 'place', 'date', 'description'],
+      (vm, field) => vm.meetup[field],
+      (vm, field, value) => {
+        vm.setMeetupField({ field, value });
+      },
+    ),
   },
 
   props: {
-    meetup: {
-      type: Object,
-      required: true
-    },
     submitText: {
       type: String,
       default: "Сохранить"
@@ -98,24 +112,16 @@ export default {
   },
 
   methods: {
-    addAgendaItem() {
-      const newItem = {}; //buildAgendaItem();
-      if (this.lcMeetup.agenda.length > 0) {
-        newItem.startsAt = this.lcMeetup.agenda[
-          this.lcMeetup.agenda.length - 1
-        ].endsAt;
-      }
-      this.lcMeetup.agenda.push(newItem);
-    },
-    removeAgendaItem(idx) {
-      this.lcMeetup.agenda.splice(idx, 1);
-    },
+    ...mapMutations('form', {
+      setMeetupField: 'SET_MEETUP_FIELD',
+      pushAgendaItem: 'PUSH_AGENDA_ITEM',
+    }),
     handleSubmit() {
-      this.$emit("submit", deepClone(this.lcMeetup));
+      this.$emit("submit", this.meetup);
     },
     handleCancel() {
       this.$emit("cancel");
-    }
+    },
   }
 };
 </script>

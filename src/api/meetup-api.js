@@ -28,3 +28,34 @@ export function getMeetupCoverLink(meetup) {
 export async function fetchMeetupWithApi(id) {
   return http(`${API_URL}/meetups/${id}`);
 }
+
+export function deleteMeetupWithApi(meetupId) {
+  return http(`${API_URL}/meetups/${meetupId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: { meetupId }
+  })
+}
+
+export function participateInMeetupWithApi(meetupId) {
+  return http(`${API_URL}/meetups/${meetupId}/participation`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: { meetupId }
+  })
+}
+
+export function cancelParticipationInMeetupWithApi(meetupId) {
+  return http(`${API_URL}/meetups/${meetupId}/participation`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: { meetupId }
+  })
+}
+

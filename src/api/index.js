@@ -1,6 +1,2 @@
 export * from "./auth-api";
-export {
-  fetchMeetupsWithApi,
-  getMeetupCoverLink,
-  fetchMeetupWithApi
-} from "./meetup-api";
+export * from "./meetup-api";

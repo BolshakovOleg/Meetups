@@ -32,7 +32,7 @@ export default {
         date: new Date(meetup.date)
       };
     }
-  }
+  },
 };
 </script>
 
