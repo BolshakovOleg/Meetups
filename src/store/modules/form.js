@@ -22,6 +22,10 @@ const mutations = {
   // Или можно было бы передавать новый элемент программы в полезной нагрузке
   PUSH_AGENDA_ITEM(state) {
     const agendaItem = buildAgendaItem();
+    if ( state.meetup.agenda.length > 0 ) {
+      agendaItem.startsAt = state.meetup.agenda[state.meetup.agenda.length - 1].endsAt;
+      agendaItem.endsAt = state.meetup.agenda[state.meetup.agenda.length - 1].endsAt;
+    } 
     state.meetup.agenda.push(agendaItem);
   },
 

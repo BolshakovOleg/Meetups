@@ -137,3 +137,35 @@ export const getAgendaItemsFieldSpecifications = () => {
     ]
   };
 };
+
+const HOURS_A_DAY = 24;
+const MINUTES_PER_HOUR = 60;
+
+export const calcMeetupDuration = (startsAt, endsAt) => {
+  let hours = parseInt(endsAt.split(':')[0]) - parseInt(startsAt.split(':')[0]),
+      minutes = parseInt(endsAt.split(':')[1]) - parseInt(startsAt.split(':')[1]);
+  if (minutes < 0) {
+    minutes = minutes + MINUTES_PER_HOUR;
+    hours--;
+  };
+  if (hours < 0) {
+    hours = hours + HOURS_A_DAY;
+  };
+  return {
+    hours,
+    minutes
+  };
+}
+
+export const calcMeetupEndsTime = (startsAt, duration) => {
+  let hours = parseInt(startsAt.split(':')[0]) + duration.hours;
+  let minutes = parseInt(startsAt.split(':')[1]) + duration.minutes;
+  if (minutes >= MINUTES_PER_HOUR) {
+    minutes = minutes % MINUTES_PER_HOUR;
+    hours++;
+  };
+  hours = hours % HOURS_A_DAY;
+  hours = hours.toString().padStart(2, '0');
+  minutes = minutes.toString().padStart(2, '0');
+  return hours + ':' + minutes;
+}

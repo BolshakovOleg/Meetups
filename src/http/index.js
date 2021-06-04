@@ -1,10 +1,11 @@
 export const http = function(url, options) {
   return fetch(url, {
     ...options,
-    body: JSON.stringify(options?.body)
+    body: hasMultipartFormData(options?.headers) ? options?.body : JSON.stringify(options?.body),
+    credentials: 'include'
   }).then(response => {
     if (response.ok) {
-      if ( contentTypeIsApplicationJson(response) ) {
+      if ( hasApplicationJson(response) ) {
         return response.json();
       } else {
         return response.text();
@@ -17,7 +18,16 @@ export const http = function(url, options) {
   });
 };
 
-function contentTypeIsApplicationJson (response) {
+function hasApplicationJson (response) {
   const contentType = response.headers.get("content-type");
   return contentType && contentType.indexOf("application/json") !== -1;
+}
+
+function hasMultipartFormData (headers) {
+  if ( headers ) {
+    const contentType = headers["Content-Type"];
+    return contentType && contentType === "multipart/form-data";
+  } else {
+    return false;
+  }
 }

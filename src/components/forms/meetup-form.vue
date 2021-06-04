@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Изображение</label>
-          <!--image-uploader v-model="lcMeetup.imageId" /-->
+          <image-uploader v-model="meetup.imageId" />
         </div>
       </fieldset>
 
@@ -81,13 +81,14 @@ import { mapFields } from "@/utils";
 import { mapState, mapMutations } from "vuex";
 import AppInput from "@/components/ui/app-input";
 import MeetupAgendaItemForm from "./meetup-agenda-item-form";
+import ImageUploader from "@/components/ui/image-uploader";
 
 export default {
   name: "meetup-form",
 
   components: {
     AppInput,
-    //ImageUploader
+    ImageUploader,
     MeetupAgendaItemForm
   },
 

@@ -8,7 +8,7 @@
       <dropdown-button
         title="Тип"
         :options="$options.agendaItemTypes"
-        v-model="agendaItem.type"
+        v-model="type"
       />
     </form-group>
 
@@ -41,8 +41,8 @@
       <component
         :is="item.component"
         v-bind="item.props"
-        v-bind:[item.model.prop]="agendaItem[item.field]"
-        v-on:[item.model.event]="value => agendaItem[item.field] = value"
+        v-bind:[item.model.prop]="item.field"
+        v-on:[item.model.event]="value => item.field = value"
       />
     </form-group>
   </div>
@@ -55,12 +55,11 @@ import FormGroup from '@/components/ui/form-group';
 import {
   getAgendaItemsFieldSpecifications,
   getAgendaItemTypes,
+  calcMeetupDuration,
+  calcMeetupEndsTime
 } from '@/services/meetup-service';
 import { mapState, mapMutations } from "vuex";
 import { mapFields } from "@/utils";
-
-const HOURS_A_DAY = 24;
-const MINUTES_PER_HOUR = 60;
 
 export default {
   name: 'meetup-agenda-item-form',
@@ -90,7 +89,7 @@ export default {
       }
     }),
 
-    ...mapFields(['type', 'title', 'description'],
+    ...mapFields(['type', 'startsAt', 'endsAt', 'title', 'description'],
       (vm, field) => vm.agendaItem[field],
       (vm, field, value) => {
         vm.setMeetupAgendaItemField({
@@ -98,6 +97,8 @@ export default {
           field,
           value,
         });
+        if ( field === 'startsAt' ) vm.updateEndsTime();
+        if ( field === 'endsAt' ) vm.calculateDuration();
       }
     ),
   
@@ -105,32 +106,6 @@ export default {
       return this.$options.fieldSpecifications[this.agendaItem.type];
     },
 
-    startsAt: {
-      get() {
-        return this.agendaItem.startsAt;
-      },
-      set(value) {
-        this.setMeetupAgendaItemField({
-          index: this.index,
-          field: 'startsAt',
-          value,
-        });
-        this.updateEndsTime();
-      }
-    },
-    endsAt: {
-      get() {
-        return this.agendaItem.endsAt;
-      },
-      set(value) {
-        this.setMeetupAgendaItemField({
-          index: this.index,
-          field: 'endsAt',
-          value,
-        });
-        this.calculateDuration();
-      }
-    }
   },
 
   methods: {
@@ -139,31 +114,10 @@ export default {
       removeAgendaItem: 'REMOVE_AGENDA_ITEM',
     }),
     updateEndsTime() {
-      let hours = parseInt(this.startsAt.split(':')[0]) + this.duration.hours;
-      let minutes = parseInt(this.startsAt.split(':')[1]) + this.duration.minutes;
-      if (minutes >= MINUTES_PER_HOUR) {
-        minutes = minutes % MINUTES_PER_HOUR;
-        hours++;
-      };
-      hours = hours % HOURS_A_DAY;
-      hours = hours.toString().padStart(2, '0');
-      minutes = minutes.toString().padStart(2, '0');
-      this.endsAt = hours + ':' + minutes;
+      this.endsAt = calcMeetupEndsTime(this.startsAt, this.duration);
     },
     calculateDuration() {
-      let hours = parseInt(this.endsAt.split(':')[0]) - parseInt(this.startsAt.split(':')[0]),
-          minutes = parseInt(this.endsAt.split(':')[1]) - parseInt(this.startsAt.split(':')[1]);
-      if (minutes < 0) {
-        minutes = minutes + MINUTES_PER_HOUR;
-        hours--;
-      };
-      if (hours < 0) {
-        hours = hours + HOURS_A_DAY;
-      };
-      this.duration = {
-        hours,
-        minutes
-      };
+      this.duration = calcMeetupDuration(this.startsAt, this.endsAt);
     },
   },
   mounted() {
